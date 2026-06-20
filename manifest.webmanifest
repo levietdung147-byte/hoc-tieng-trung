@@ -1,0 +1,16 @@
+{
+  "name": "Học Tiếng Trung — 30 phút mỗi ngày",
+  "short_name": "Học Tiếng Trung",
+  "description": "Học tiếng Trung HSK 1–2 mỗi ngày 30 phút: flashcard, luyện viết chữ Hán, ôn tập.",
+  "lang": "vi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#1c1b22",
+  "theme_color": "#1c1b22",
+  "icons": [
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

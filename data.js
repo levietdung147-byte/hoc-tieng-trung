@@ -1,0 +1,111 @@
+/* Dữ liệu từ vựng tiếng Trung — HSK 1 mở rộng, chia theo bài (mỗi bài ~8 từ).
+   Mỗi từ: { hanzi, pinyin, vn }.  Học theo từng bài, mỗi ngày 1 bài. */
+
+const LESSONS = [
+  {
+    chude: "Chào hỏi & Đại từ",
+    tu: [
+      { hanzi: "你好", pinyin: "nǐ hǎo", vn: "xin chào" },
+      { hanzi: "我", pinyin: "wǒ", vn: "tôi" },
+      { hanzi: "你", pinyin: "nǐ", vn: "bạn" },
+      { hanzi: "他", pinyin: "tā", vn: "anh ấy" },
+      { hanzi: "她", pinyin: "tā", vn: "cô ấy" },
+      { hanzi: "我们", pinyin: "wǒmen", vn: "chúng tôi" },
+      { hanzi: "谢谢", pinyin: "xièxie", vn: "cảm ơn" },
+      { hanzi: "再见", pinyin: "zàijiàn", vn: "tạm biệt" },
+    ],
+  },
+  {
+    chude: "Số đếm",
+    tu: [
+      { hanzi: "一", pinyin: "yī", vn: "một" },
+      { hanzi: "二", pinyin: "èr", vn: "hai" },
+      { hanzi: "三", pinyin: "sān", vn: "ba" },
+      { hanzi: "四", pinyin: "sì", vn: "bốn" },
+      { hanzi: "五", pinyin: "wǔ", vn: "năm" },
+      { hanzi: "六", pinyin: "liù", vn: "sáu" },
+      { hanzi: "七", pinyin: "qī", vn: "bảy" },
+      { hanzi: "八", pinyin: "bā", vn: "tám" },
+      { hanzi: "九", pinyin: "jiǔ", vn: "chín" },
+      { hanzi: "十", pinyin: "shí", vn: "mười" },
+    ],
+  },
+  {
+    chude: "Người & Gia đình",
+    tu: [
+      { hanzi: "人", pinyin: "rén", vn: "người" },
+      { hanzi: "家", pinyin: "jiā", vn: "nhà, gia đình" },
+      { hanzi: "爸爸", pinyin: "bàba", vn: "bố" },
+      { hanzi: "妈妈", pinyin: "māma", vn: "mẹ" },
+      { hanzi: "儿子", pinyin: "érzi", vn: "con trai" },
+      { hanzi: "女儿", pinyin: "nǚ'ér", vn: "con gái" },
+      { hanzi: "朋友", pinyin: "péngyou", vn: "bạn bè" },
+      { hanzi: "老师", pinyin: "lǎoshī", vn: "giáo viên" },
+    ],
+  },
+  {
+    chude: "Thời gian",
+    tu: [
+      { hanzi: "今天", pinyin: "jīntiān", vn: "hôm nay" },
+      { hanzi: "明天", pinyin: "míngtiān", vn: "ngày mai" },
+      { hanzi: "昨天", pinyin: "zuótiān", vn: "hôm qua" },
+      { hanzi: "年", pinyin: "nián", vn: "năm" },
+      { hanzi: "月", pinyin: "yuè", vn: "tháng" },
+      { hanzi: "日", pinyin: "rì", vn: "ngày" },
+      { hanzi: "现在", pinyin: "xiànzài", vn: "bây giờ" },
+      { hanzi: "时候", pinyin: "shíhou", vn: "lúc, khi" },
+    ],
+  },
+  {
+    chude: "Động từ thường dùng",
+    tu: [
+      { hanzi: "是", pinyin: "shì", vn: "là" },
+      { hanzi: "有", pinyin: "yǒu", vn: "có" },
+      { hanzi: "吃", pinyin: "chī", vn: "ăn" },
+      { hanzi: "喝", pinyin: "hē", vn: "uống" },
+      { hanzi: "看", pinyin: "kàn", vn: "nhìn, xem" },
+      { hanzi: "去", pinyin: "qù", vn: "đi" },
+      { hanzi: "来", pinyin: "lái", vn: "đến" },
+      { hanzi: "说", pinyin: "shuō", vn: "nói" },
+    ],
+  },
+  {
+    chude: "Ăn uống",
+    tu: [
+      { hanzi: "饭", pinyin: "fàn", vn: "cơm" },
+      { hanzi: "水", pinyin: "shuǐ", vn: "nước" },
+      { hanzi: "茶", pinyin: "chá", vn: "trà" },
+      { hanzi: "菜", pinyin: "cài", vn: "món ăn, rau" },
+      { hanzi: "肉", pinyin: "ròu", vn: "thịt" },
+      { hanzi: "水果", pinyin: "shuǐguǒ", vn: "trái cây" },
+      { hanzi: "米饭", pinyin: "mǐfàn", vn: "cơm trắng" },
+      { hanzi: "好吃", pinyin: "hǎochī", vn: "ngon" },
+    ],
+  },
+  {
+    chude: "Tính từ & Câu hỏi",
+    tu: [
+      { hanzi: "大", pinyin: "dà", vn: "to, lớn" },
+      { hanzi: "小", pinyin: "xiǎo", vn: "nhỏ" },
+      { hanzi: "多", pinyin: "duō", vn: "nhiều" },
+      { hanzi: "少", pinyin: "shǎo", vn: "ít" },
+      { hanzi: "好", pinyin: "hǎo", vn: "tốt" },
+      { hanzi: "什么", pinyin: "shénme", vn: "cái gì" },
+      { hanzi: "谁", pinyin: "shéi", vn: "ai" },
+      { hanzi: "哪儿", pinyin: "nǎr", vn: "ở đâu" },
+    ],
+  },
+  {
+    chude: "Học tập & Công việc",
+    tu: [
+      { hanzi: "学习", pinyin: "xuéxí", vn: "học tập" },
+      { hanzi: "工作", pinyin: "gōngzuò", vn: "làm việc" },
+      { hanzi: "学生", pinyin: "xuésheng", vn: "học sinh" },
+      { hanzi: "书", pinyin: "shū", vn: "sách" },
+      { hanzi: "字", pinyin: "zì", vn: "chữ" },
+      { hanzi: "中国", pinyin: "Zhōngguó", vn: "Trung Quốc" },
+      { hanzi: "汉语", pinyin: "Hànyǔ", vn: "tiếng Trung" },
+      { hanzi: "名字", pinyin: "míngzi", vn: "tên" },
+    ],
+  },
+];

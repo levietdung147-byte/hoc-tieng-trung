@@ -1,0 +1,25 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Hoc Tieng Trung//VI//
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:hoc-tieng-trung-daily-20h@local
+DTSTAMP:20260619T120000Z
+DTSTART;TZID=Asia/Ho_Chi_Minh:20260620T050000
+DTEND;TZID=Asia/Ho_Chi_Minh:20260620T053000
+RRULE:FREQ=DAILY
+SUMMARY:学中文 — Học tiếng Trung 30 phút 🔥
+DESCRIPTION:Đến giờ học rồi! Mở app hoc-tieng-trung\\index.html.\n- 5' ôn từ cũ\n- 12' học 8 từ mới\n- 10' luyện viết chữ\n- 3' tự kiểm tra + bấm Hoàn thành\nGiữ chuỗi streak nhé! 加油!
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Đến giờ học tiếng Trung 30 phút!
+TRIGGER:PT0M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:10 phút nữa tới giờ học tiếng Trung
+TRIGGER:-PT10M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

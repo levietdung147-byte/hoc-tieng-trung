@@ -10,7 +10,7 @@ Làm 1 lần, khoảng 3 phút.
 3. Xoá hết code mẫu, rồi **dán toàn bộ nội dung file `nhac-email.gs`** vào.
 4. Kiểm tra 2 dòng đầu (mục CONFIG):
    - `EMAIL_NHAN` — email nhận nhắc (mặc định đã đúng).
-   - `APP_URL` — **dán link app GitHub Pages** vào đây (thay cho `__APP_URL__`).
+   - `APP_URL` — đã điền sẵn `https://levietdung147-byte.github.io/hoc-tieng-trung/`.
 5. Bấm **Lưu** (biểu tượng đĩa mềm 💾).
 6. Ở thanh chọn hàm phía trên, chọn **`caiLichNhac`** → bấm **▶ Run / Chạy**.
 7. Lần đầu Google hỏi quyền:

@@ -15,7 +15,7 @@
 
 // ====== CONFIG — chỉnh ở đây ======
 const EMAIL_NHAN = "levietdung147@gmail.com";
-const APP_URL    = "__APP_URL__"; // ← dán link GitHub Pages vào đây
+const APP_URL    = "https://levietdung147-byte.github.io/hoc-tieng-trung/";
 const GIO_GUI    = 6;             // 6 = 6h sáng (0–23)
 // ==================================
 

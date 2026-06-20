@@ -105,6 +105,29 @@ body {
 .writer-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 .write__tip { font-size: 13px; color: var(--muted); text-align: center; max-width: 360px; }
 
+/* ---------- Luyện nói ---------- */
+.mic-btn {
+  width: 96px; height: 96px; border-radius: 50%; border: 0; cursor: pointer;
+  background: var(--red); color: #fff; font-size: 40px; line-height: 1;
+  display: grid; place-items: center; transition: .2s;
+  box-shadow: 0 8px 24px rgba(214,69,61,.35);
+}
+.mic-btn:hover { background: var(--red-light); }
+.mic-btn:disabled { background: var(--surface-2); box-shadow: none; cursor: not-allowed; opacity: .6; }
+.mic-btn.listening { animation: pulse 1.2s ease-in-out infinite; background: var(--red-light); }
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(232,99,91,.55); }
+  70%  { box-shadow: 0 0 0 22px rgba(232,99,91,0); }
+  100% { box-shadow: 0 0 0 0 rgba(232,99,91,0); }
+}
+.speak__status { color: var(--muted); font-size: 14px; text-align: center; min-height: 20px; }
+.speak__result { width: 100%; max-width: 380px; text-align: center; border-radius: var(--radius); padding: 16px 18px; font-size: 15px; }
+.speak__result.good { background: rgba(76,175,125,.15); border: 1px solid var(--green); }
+.speak__result.bad  { background: rgba(214,69,61,.12); border: 1px solid var(--red); }
+.speak__result .heard { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.speak__result .heard b { color: var(--text); }
+@media (prefers-reduced-motion: reduce) { .mic-btn.listening { animation: none; } }
+
 /* ---------- Quiz ---------- */
 .quiz { width: 100%; max-width: 420px; text-align: center; }
 .quiz__q { color: var(--muted); margin-bottom: 12px; }

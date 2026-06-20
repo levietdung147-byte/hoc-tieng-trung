@@ -29,13 +29,14 @@ tabs.forEach(t => t.addEventListener("click", () => {
   t.classList.add("is-active");
   document.getElementById("tab-" + t.dataset.tab).classList.add("is-active");
   if (t.dataset.tab === "write") renderWriter();
+  if (t.dataset.tab === "speak") { stopListening(); renderSpeak(); }
 }));
 
 /* ====== Phát âm (Web Speech API) ====== */
-function speak(text) {
+function speak(text, rate) {
   if (!window.speechSynthesis) return;
   const u = new SpeechSynthesisUtterance(text);
-  u.lang = "zh-CN"; u.rate = 0.85;
+  u.lang = "zh-CN"; u.rate = rate || 0.85;
   speechSynthesis.cancel();
   speechSynthesis.speak(u);
 }
@@ -92,6 +93,117 @@ document.getElementById("writeNext").addEventListener("click", () => {
 document.getElementById("writePrev").addEventListener("click", () => {
   wi = (wi - 1 + chars.length) % chars.length; renderWriter();
 });
+
+/* ====== Luyện nói (Speech Recognition) ====== */
+let si = 0, speakOk = 0, speakTotal = 0, recognizing = false;
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+const $speakHanzi = document.getElementById("speakHanzi");
+const $speakStatus = document.getElementById("speakStatus");
+const $speakResult = document.getElementById("speakResult");
+const $micBtn = document.getElementById("micBtn");
+
+// chỉ giữ lại ký tự chữ Hán để so sánh (bỏ dấu câu, khoảng trắng, latin)
+function onlyHan(s) { return (s || "").replace(/[^一-鿿]/g, ""); }
+
+function renderSpeak() {
+  const w = words[si];
+  $speakHanzi.textContent = w.hanzi;
+  document.getElementById("speakPinyin").textContent = w.pinyin;
+  document.getElementById("speakVn").textContent = w.vn;
+  document.getElementById("speakCounter").textContent = `${si + 1} / ${words.length}`;
+  $speakResult.hidden = true;
+  $speakResult.className = "speak__result";
+  $speakStatus.textContent = SR ? "Nhấn micro rồi đọc to chữ phía trên" : "";
+}
+
+function setScore() {
+  document.getElementById("speakScore").textContent = `Đọc đúng: ${speakOk} / ${speakTotal}`;
+}
+
+function stopListening() {
+  if (recognition && recognizing) { try { recognition.abort(); } catch (e) {} }
+  recognizing = false;
+  $micBtn.classList.remove("listening");
+}
+
+let recognition = null;
+if (SR) {
+  recognition = new SR();
+  recognition.lang = "zh-CN";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 5;
+  recognition.continuous = false;
+
+  recognition.onresult = (ev) => {
+    const target = onlyHan(words[si].hanzi);
+    const alts = [];
+    for (let i = 0; i < ev.results[0].length; i++) alts.push(onlyHan(ev.results[0][i].transcript));
+    const heard = alts[0] || "(không rõ)";
+
+    const perfect = alts.some(a => a === target);
+    const close = !perfect && alts.some(a => a.includes(target) || target.includes(a));
+
+    speakTotal++;
+    $speakResult.hidden = false;
+    if (perfect) {
+      speakOk++;
+      $speakResult.className = "speak__result good";
+      $speakResult.innerHTML = "✅ <b>Tuyệt vời! Phát âm rõ ràng.</b>";
+      speak(words[si].hanzi);
+    } else if (close) {
+      speakOk++;
+      $speakResult.className = "speak__result good";
+      $speakResult.innerHTML = "👍 <b>Khá tốt!</b> Máy nhận ra đúng từ." +
+        `<div class="heard">Máy nghe: <b>${heard}</b></div>`;
+    } else {
+      $speakResult.className = "speak__result bad";
+      $speakResult.innerHTML = "🔁 <b>Chưa khớp — thử lại nhé.</b>" +
+        `<div class="heard">Máy nghe: <b>${heard}</b> · Cần đọc: <b>${words[si].hanzi}</b> (${words[si].pinyin})</div>` +
+        `<div class="heard">Mẹo: chú ý <b>thanh điệu</b>, nghe lại mẫu rồi đọc theo.</div>`;
+      setTimeout(() => speak(words[si].hanzi), 400);
+    }
+    setScore();
+  };
+
+  recognition.onerror = (ev) => {
+    recognizing = false;
+    $micBtn.classList.remove("listening");
+    if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
+      $speakStatus.textContent = "🚫 Chưa được phép dùng micro. Hãy cho phép quyền micro cho trang này.";
+    } else if (ev.error === "no-speech") {
+      $speakStatus.textContent = "Không nghe thấy gì — nhấn micro và đọc to hơn nhé.";
+    } else {
+      $speakStatus.textContent = "Có lỗi khi nghe, thử lại nhé.";
+    }
+  };
+
+  recognition.onend = () => {
+    recognizing = false;
+    $micBtn.classList.remove("listening");
+  };
+
+  $micBtn.addEventListener("click", () => {
+    if (recognizing) { stopListening(); return; }
+    speechSynthesis && speechSynthesis.cancel();
+    try {
+      recognition.start();
+      recognizing = true;
+      $micBtn.classList.add("listening");
+      $speakStatus.textContent = "🎙️ Đang nghe… đọc to chữ phía trên";
+      $speakResult.hidden = true;
+    } catch (e) { /* start khi đang chạy → bỏ qua */ }
+  });
+} else {
+  $micBtn.disabled = true;
+  document.getElementById("speakWarn").hidden = false;
+  $speakStatus.textContent = "";
+}
+
+document.getElementById("speakModel").addEventListener("click", () => speak(words[si].hanzi));
+document.getElementById("speakSlow").addEventListener("click", () => speak(words[si].hanzi, 0.55));
+document.getElementById("speakNext").addEventListener("click", () => { stopListening(); si = (si + 1) % words.length; renderSpeak(); });
+document.getElementById("speakPrev").addEventListener("click", () => { stopListening(); si = (si - 1 + words.length) % words.length; renderSpeak(); });
+renderSpeak();
 
 /* ====== Ôn tập (Quiz nghĩa) ====== */
 let score = 0;

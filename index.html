@@ -51,8 +51,9 @@
 
     <!-- Tabs -->
     <nav class="tabs">
-      <button class="tab is-active" data-tab="flash">📇 Học từ mới</button>
-      <button class="tab" data-tab="write">✍️ Luyện viết</button>
+      <button class="tab is-active" data-tab="flash">📇 Từ mới</button>
+      <button class="tab" data-tab="write">✍️ Viết</button>
+      <button class="tab" data-tab="speak">🗣️ Nói</button>
       <button class="tab" data-tab="quiz">🎯 Ôn tập</button>
     </nav>
 
@@ -94,6 +95,32 @@
         <button class="btn btn--ghost" id="writeNext">Chữ sau →</button>
       </div>
       <p class="write__tip">Mẹo: viết theo đúng thứ tự nét, từ trên xuống dưới, trái sang phải.</p>
+    </section>
+
+    <!-- TAB: Luyện nói -->
+    <section class="panel" id="tab-speak">
+      <p class="write__word">
+        <span id="speakHanzi" class="hanzi-mid">你好</span>
+        <span id="speakPinyin" class="pinyin-sm">nǐ hǎo</span> ·
+        <span id="speakVn" class="vn-sm">xin chào</span>
+      </p>
+      <button class="mic-btn" id="micBtn" aria-label="Nhấn để nói thử">🎤</button>
+      <p class="speak__status" id="speakStatus">Nhấn micro rồi đọc to chữ phía trên</p>
+      <div class="speak__result" id="speakResult" hidden></div>
+      <div class="row">
+        <button class="btn btn--audio" id="speakModel">🔊 Nghe mẫu</button>
+        <button class="btn btn--outline" id="speakSlow">🐢 Nghe chậm</button>
+      </div>
+      <div class="row">
+        <button class="btn btn--ghost" id="speakPrev">← Từ trước</button>
+        <span class="counter" id="speakCounter">1 / 8</span>
+        <button class="btn btn--ghost" id="speakNext">Từ sau →</button>
+      </div>
+      <p class="counter" id="speakScore">Đọc đúng: 0 / 0</p>
+      <p class="write__tip" id="speakWarn" hidden>
+        ⚠️ Trình duyệt này chưa hỗ trợ nhận giọng nói. Hãy dùng <b>Chrome / Edge</b> trên máy tính,
+        hoặc <b>Chrome</b> trên Android. Bạn vẫn nghe được phát âm mẫu để luyện theo.
+      </p>
     </section>
 
     <!-- TAB: Quiz -->
